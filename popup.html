@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="icon" type="image/png" href="icons/icon32.png">
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; width: 292px; padding: 14px;
+    font: 13px/1.45 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: #191d24; color: #e7eaf0;
+  }
+  .head { display: flex; align-items: center; gap: 9px; margin-bottom: 12px; }
+  .logo { width: 34px; height: 34px; border-radius: 11px; flex: 0 0 auto; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,.35); }
+  .logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .head b { font-size: 14px; letter-spacing: -.2px; display: block; }
+  .head b em { font-style: normal; color: #4c8dff; }
+  .head span { font-size: 11px; color: #79839a; display: block; }
+  .row {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 9px 10px; border-radius: 12px; background: #21262e; margin-bottom: 7px;
+    border: 1px solid #2a303a;
+  }
+  .row .t { font-weight: 600; font-size: 12.5px; }
+  .row .d { font-size: 11px; color: #79839a; margin-top: 1px; }
+  .sw { position: relative; width: 38px; height: 22px; flex: 0 0 auto; cursor: pointer; }
+  .sw input { opacity: 0; width: 0; height: 0; position: absolute; }
+  .tr { position: absolute; inset: 0; border-radius: 99px; background: #39414d; transition: background .15s; }
+  .tr::after {
+    content: ""; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px;
+    border-radius: 50%; background: #fff; transition: transform .15s;
+  }
+  .sw input:checked + .tr { background: #4c8dff; }
+  .sw input:checked + .tr::after { transform: translateX(16px); }
+  .open {
+    width: 100%; height: 38px; border: 0; border-radius: 12px; margin-top: 5px;
+    background: #4c8dff; color: #fff; font-weight: 700; font-size: 13px; cursor: pointer;
+  }
+  .open:hover { background: #6ba0ff; }
+  .note { font-size: 11px; color: #79839a; margin: 10px 2px 0; line-height: 1.5; }
+</style>
+</head>
+<body>
+  <div class="head">
+    <div class="logo"><img src="icons/logo.png" alt="Heros Markdown logo"></div>
+    <div><b>Heros <em>Markdown</em></b><span>MD viewer + LaTeX + builder</span></div>
+  </div>
+
+  <div class="row">
+    <div><div class="t">Auto-open local .md</div><div class="d">Take over file:///.md links</div></div>
+    <label class="sw"><input type="checkbox" id="autoFile"><span class="tr"></span></label>
+  </div>
+  <div class="row">
+    <div><div class="t">Auto-open web .md</div><div class="d">Take over http(s) .md links</div></div>
+    <label class="sw"><input type="checkbox" id="autoWeb"><span class="tr"></span></label>
+  </div>
+
+  <button class="open" id="btnOpen">Open Heros Markdown</button>
+
+  <p class="note" id="fileNote" hidden>For local files also enable <b>“Allow access to file URLs”</b> for Heros Markdown on chrome://extensions.</p>
+
+  <script src="popup.js"></script>
+</body>
+</html>

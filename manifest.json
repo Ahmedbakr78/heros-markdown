@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "Heros Markdown",
+  "version": "1.0.0",
+  "description": "Heros Markdown — fast, private Markdown viewer & builder. Read full .md files with LaTeX math, GFM, TOC and edit. Free & unlimited.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_title": "Heros Markdown",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "contextMenus",
+    "webNavigation",
+    "storage"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; connect-src 'self' https: http:;"
+  }
+}
