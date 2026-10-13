@@ -1,10 +1,16 @@
 # Heros Markdown
 
+<div align="center">
+
+<img src="icons/logo.png" alt="Heros Markdown app icon" width="130">
+
+## Heros Markdown
+
 **A fast, private, free and unlimited Markdown studio for Chrome, Edge and Brave — with the complete app experience on mobile via Kiwi Browser.**
 
-> Live at [github.com/Ahmedbakr78](https://github.com/Ahmedbakr78) — [Install](#install) · [All 110 features](#all-110-features) · [Architecture](#architecture) · [Releases](RELEASE_v1.2.0.md) · [Changelog](CHANGELOG.md)
+<img src="icons/icon128.png" alt="Heros Markdown extension icon" width="26"> Extension icon `icons/icon128.png` &nbsp;·&nbsp; <img src="icons/icon48.png" alt="Heros Markdown icon 48" width="18"> `icon48` &nbsp;·&nbsp; <img src="icons/icon32.png" alt="Heros Markdown icon 32" width="16"> `icon32` &nbsp;·&nbsp; <img src="icons/icon16.png" alt="Heros Markdown icon 16" width="16"> `icon16`
 
-<div align="center">
+> Live at [github.com/Ahmedbakr78](https://github.com/Ahmedbakr78) — [Install](#install) · [All 110 features](#all-110-features) · [Architecture](#architecture) · [Releases](RELEASE_v1.2.0.md) · [Changelog](CHANGELOG.md)
 
 ![Version](https://img.shields.io/badge/version-1.2.0-4c8dff) ![License](https://img.shields.io/badge/license-MIT-22c55e) ![Price](https://img.shields.io/badge/price-free_forever-22c55e) ![Offline](https://img.shields.io/badge/offline-100%25-22c55e) ![Tools](https://img.shields.io/badge/tools-110-4c8dff) ![Chrome](https://img.shields.io/badge/Chrome_Edge_Brave-supported-14181f) ![Mobile](https://img.shields.io/badge/Kiwi_Browser-supported-14181f)
 
@@ -29,7 +35,32 @@
 13. [Development](#development)
 14. [Roadmap](#roadmap)
 15. [FAQ](#faq)
-16. [License](#license)
+ 16. [License](#license)
+
+---
+
+## Heros Markdown icon
+
+The extension and repository icon lives in `icons/` and is used on every page:
+
+| File | Size | Used for |
+|---|---|---|
+| `icons/logo.png` | 512 × 512 | Master app icon, social preview, README header |
+| `icons/icon128.png` | 128 × 128 | Chrome Web Store and browser chrome |
+| `icons/icon48.png` | 48 × 48 | Extension management page |
+| `icons/icon32.png` | 32 × 32 | Toolbar retina and Windows taskbar |
+| `icons/icon16.png` | 16 × 16 | Toolbar, favicon, context menus |
+| `icons/apple-touch-icon.png` | 180 × 180 | iOS home screen |
+
+Copies for the website and distribution are in `assets/app-icon-512.png`, `assets/app-icon-192.png`, `assets/app-icon-128.png` and `assets/app-icon-maskable-192.png`.
+
+---
+
+## Screenshots
+
+| Dark reader | Light reader | Features list |
+|---|---|---|
+| ![Dark reader](assets/screenshots/reader-dark.png) | ![Light reader](assets/screenshots/reader-light.png) | ![Features list](assets/screenshots/features-list.png) |
 
 ---
 
