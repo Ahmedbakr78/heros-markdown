@@ -610,15 +610,15 @@ pie title Heros Markdown 110 tools by category
 ```mermaid
 stateDiagram-v2
     [*] --> Open
-    Open --> Read: load file, URL or paste
-    Read --> Mark: select text H / U / S
-    Mark --> Cards: generate flashcards
-    Cards --> Quiz: quiz me
-    Quiz --> Anki: export TSV
-    Quiz --> Known: mark card known
+    Open --> Read : load file, URL or paste
+    Read --> Mark : select text, press H, U or S
+    Mark --> Cards : generate flashcards
+    Cards --> Quiz : quiz me
+    Quiz --> Anki : export TSV
+    Quiz --> Known : mark card known
     Known --> Quiz
-    Read --> Organize: tasks, stopwatch, tracker
-    Organize --> Backup: backup everything
+    Read --> Organize : tasks, stopwatch, tracker
+    Organize --> Backup : backup everything
     Backup --> [*]
 ```
 
@@ -639,15 +639,15 @@ gantt
     title Heros Markdown roadmap
     dateFormat YYYY-MM-DD
     axisFormat %Y
-    section Core
-    Reader, math, diagrams, search      :done, core, 2024-01-01, 2024-06-01
-    Marker Studio and flashcards       :done, study, 2024-06-01, 2024-09-01
+    section Core engine
+    Reader, math and diagrams      :done, core, 2024-01-01, 2024-06-01
+    Marker Studio and flashcards  :done, study, 2024-06-01, 2024-09-01
     section Study studio
-    Tasks, timers, tracker, backup     :done, power, 2025-01-01, 2025-03-01
-    Plugin API for templates           :active, plugins, 2025-03-01, 2025-06-01
+    Tasks, timers, tracker, backup :done, power, 2025-01-01, 2025-03-01
+    Plugin API for templates       :active, plugins, 2025-03-01, 2025-06-01
     section Platforms
-    Local sync between devices         :planned, sync, 2025-06-01, 2025-09-01
-    Firefox build                      :planned, ff, 2025-09-01, 2025-12-01
+    Local sync between devices     :crit, sync, 2025-06-01, 2025-09-01
+    Firefox build                  :crit, ff, 2025-09-01, 2025-12-01
 ```
 
 ## Storage model
