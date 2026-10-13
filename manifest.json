@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Heros Markdown",
-  "version": "1.0.0",
-  "description": "Heros Markdown — fast, private Markdown viewer & builder. Read full .md files with LaTeX math, GFM, TOC and edit. Free & unlimited.",
+  "version": "1.2.0",
+  "description": "Free, private and unlimited Markdown studio: perfect rendering, offline LaTeX math, every mermaid diagram, all languages and RTL, plus markers, flashcards, quizzes, tasks, stopwatch and habit tracking. 110 tools, no cloud.",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",

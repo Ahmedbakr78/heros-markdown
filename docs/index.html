@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Heros Markdown — fast, private, free and unlimited Markdown studio for Chrome, Edge and Brave. Perfect rendering, offline LaTeX math, every mermaid diagram, all languages and right-to-left scripts, plus markers, flashcards, quizzes, tasks, stopwatch and habit tracking.">
+<meta name="keywords" content="markdown viewer, latex, katex, mermaid, diagrams, rtl, chrome extension, flashcards, anki, study tools, offline, privacy, free">
+<meta name="theme-color" content="#0e1014">
+<meta property="og:title" content="Heros Markdown — Free Markdown Studio">
+<meta property="og:description" content="Perfect markdown, offline LaTeX, every diagram, all languages. Plus a full study system. 110 tools, free forever, 100% private.">
+<meta property="og:image" content="../assets/app-icon-512.png">
+<link rel="icon" type="image/png" href="../assets/app-icon-192.png">
+<title>Heros Markdown — Free Markdown Studio</title>
+<style>
+:root{--bg:#e9ecf1;--surface:#ffffff;--surface2:#f1f5f9;--border:#dde2e9;--text:#14181f;--muted:#7b8697;--accent:#2563eb;--accent-soft:rgba(37,99,235,.08);--r:18px;--font:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1014;--surface:#191d24;--surface2:#21262e;--border:#2a303a;--text:#e7eaf0;--muted:#79839a;--accent:#4c8dff;--accent-soft:rgba(76,141,255,.14)}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.7;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+a{color:var(--accent)}
+header.top{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--border)}
+header.top .wrap{display:flex;align-items:center;gap:12px;padding:12px 20px}
+.logo{width:34px;height:34px;border-radius:10px;box-shadow:0 4px 14px -6px var(--accent)}
+.brand{font-weight:800;font-size:17px;letter-spacing:-.2px}.brand b{color:var(--accent)}
+nav{margin-left:auto;display:flex;gap:2px;flex-wrap:wrap}
+nav a{color:var(--muted);text-decoration:none;font-size:13.5px;font-weight:600;padding:8px 12px;border-radius:10px}
+nav a:hover{color:var(--text);background:var(--surface2)}
+.hero{text-align:center;padding:66px 0 24px}
+.hero img{width:108px;height:108px;border-radius:26px;box-shadow:0 24px 60px -18px var(--accent)}
+.hero h1{font-size:clamp(32px,5.4vw,52px);margin:22px 0 10px;letter-spacing:-.7px;line-height:1.15}
+.hero h1 b{color:var(--accent)}
+.hero .sub{font-size:17.5px;max-width:720px;margin:0 auto 12px;color:var(--muted)}
+.hero .note{font-size:14px;color:var(--muted);max-width:640px;margin:0 auto 26px}
+.btn{display:inline-block;background:var(--accent);color:#fff;font-weight:700;padding:14px 30px;border-radius:14px;text-decoration:none;margin:4px;transition:filter .15s}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;border:1px solid var(--border);color:var(--text)}
+.badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+.badges span{background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:6px 15px;font-size:12.5px;color:var(--muted);font-weight:600}
+.badges b{color:var(--accent)}
+.shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px;margin:38px 0 10px}
+.shots figure{margin:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:transform .15s}
+.shots figure:hover{transform:translateY(-2px)}
+.shots img{width:100%;display:block}
+.shots figcaption{padding:11px 15px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--border)}
+h2{font-size:27px;margin:56px 0 6px;letter-spacing:-.4px}
+h3{font-size:18px;margin:26px 0 6px}
+.sub{color:var(--muted);margin:0 0 20px;font-size:15px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:17px}
+.card h3{margin:0 0 6px;font-size:15.5px}
+.card p{margin:0;font-size:13.5px;color:var(--muted)}
+.card .tag{display:inline-block;font-size:10.5px;font-weight:800;background:var(--accent-soft);color:var(--accent);border-radius:99px;padding:3px 11px;margin-bottom:9px;text-transform:uppercase;letter-spacing:.5px}
+.steps{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:22px 24px}
+.steps ol{margin:0;padding-left:20px}
+.steps li{margin:9px 0;font-size:14.5px}
+code{background:var(--surface2);border:1px solid var(--border);border-radius:7px;padding:1px 7px;font-family:var(--mono);font-size:.88em}
+table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin:14px 0}
+th,td{border:1px solid var(--border);padding:10px 13px;text-align:left}
+th{background:var(--surface2);font-weight:700}
+.faq details{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:13px 17px;margin-bottom:10px}
+.faq summary{cursor:pointer;font-weight:700}
+.faq p{font-size:13.5px;color:var(--muted);margin:8px 0 0}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+ul.clean{margin:0;padding-left:20px;font-size:14px;color:var(--muted)}
+ul.clean li{margin:6px 0}
+footer{border-top:1px solid var(--border);margin-top:60px;padding:30px 0 44px;color:var(--muted);font-size:13px;text-align:center}
+@media (max-width:640px){.hero{padding:40px 0 16px}nav a{padding:6px 8px;font-size:12px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+<img class="logo" src="../assets/app-icon-192.png" alt="Heros Markdown logo">
+<span class="brand">Heros<b>MD</b></span>
+<nav><a href="#features">Features</a><a href="#install">Install</a><a href="#mobile">Mobile</a><a href="#study">Study</a><a href="#faq">FAQ</a><a href="https://github.com/Ahmedbakr78">GitHub</a></nav>
+</div></header>
+<div class="wrap">
+
+<div class="hero">
+<img src="../assets/app-icon-512.png" alt="Heros Markdown application icon">
+<h1>Heros <b>Markdown</b></h1>
+<p class="sub">A fast, private, free and unlimited Markdown studio for Chrome, Edge and Brave — with the complete app experience on mobile via Kiwi Browser.</p>
+<p class="note">Perfect rendering of newlines, tables, tasks, footnotes and callouts. Offline LaTeX math. Every mermaid diagram. Every language including right-to-left scripts. A full study system with markers, flashcards, quizzes, tasks, stopwatch, counters and habit tracking.</p>
+<a class="btn" href="https://github.com/Ahmedbakr78">Get it on GitHub</a>
+<a class="btn ghost" href="#install">Install in two minutes</a>
+<div class="badges"><span><b>110</b> free tools</span><span><b>100%</b> offline</span><span>LaTeX and diagrams</span><span>RTL languages</span><span>MIT licensed</span></div>
+</div>
+
+<div class="shots">
+<figure><img src="../assets/screenshots/reader-dark.png" alt="Dark reader view"><figcaption>Dark reader — math, diagrams, markers, outline</figcaption></figure>
+<figure><img src="../assets/screenshots/reader-light.png" alt="Light reader view"><figcaption>Studio white mode with section times</figcaption></figure>
+<figure><img src="../assets/screenshots/features-list.png" alt="Features list"><figcaption>Searchable list of all 110 tools, every one runnable</figcaption></figure>
+</div>
+
+<h2 id="features">Everything, free</h2>
+<p class="sub">Reader, study system, builder, exports and power tools — 110 features, unlimited documents, no paywalls.</p>
+<div class="grid">
+<div class="card"><span class="tag">Reader</span><h3>Perfect markdown</h3><p>Newlines, GFM tables, interactive tasks, footnotes, callouts, collapsible blocks and automatic contents.</p></div>
+<div class="card"><span class="tag">Math</span><h3>Offline LaTeX</h3><p>Inline and display math in all four delimiter forms, rendered with bundled KaTeX fonts.</p></div>
+<div class="card"><span class="tag">Diagrams</span><h3>Every mermaid graph</h3><p>Flowcharts, sequence, mindmap, Gantt, pie, journey, git graph and more, with SVG export.</p></div>
+<div class="card"><span class="tag">Languages</span><h3>All languages</h3><p>Arabic, Hebrew, Persian and Urdu flip right-to-left automatically. CJK word counting. Unicode search.</p></div>
+<div class="card"><span class="tag">Study</span><h3>Marker Studio</h3><p>Select text, press H, U, S or C. Seven colors, per-file panel, jump and export.</p></div>
+<div class="card"><span class="tag">Study</span><h3>Flashcards and quiz</h3><p>Auto-generated decks, cloze mode, scoring, Anki import and export.</p></div>
+<div class="card"><span class="tag">Study</span><h3>Study pack</h3><p>One file with the outline, every marker, notes, cards and open tasks.</p></div>
+<div class="card"><span class="tag">Organize</span><h3>Task manager</h3><p>Priorities, due dates, filters, checklist import and export.</p></div>
+<div class="card"><span class="tag">Focus</span><h3>Stopwatch and Pomodoro</h3><p>Lap timer with saved laps, focus cycles docked in the bottom bar.</p></div>
+<div class="card"><span class="tag">Habits</span><h3>Tracker and counters</h3><p>14-day check-in grid, streak counting, tally counters with steps.</p></div>
+<div class="card"><span class="tag">Save</span><h3>Backup everything</h3><p>One JSON file with marks, cards, tasks, habits, laps, notes and preferences.</p></div>
+<div class="card"><span class="tag">Builder</span><h3>Edit studio</h3><p>Live preview, six templates, image paste, lint, summary and readability lab.</p></div>
+</div>
+
+<h2 id="study">Built for studying</h2>
+<p class="sub">Read, mark, memorize, review and repeat — without leaving the document.</p>
+<div class="cols">
+<div class="steps"><h3>Read</h3><ul class="clean">
+<li>Open any .md file, URL or paste</li>
+<li>Newlines and tables render exactly as written</li>
+<li>Estimated reading time on every heading</li>
+<li>Search with case and whole-word in any language</li>
+</ul></div>
+<div class="steps"><h3>Mark</h3><ul class="clean">
+<li>Select any text to get the floating bar</li>
+<li>Highlight, underline, strike, copy or note</li>
+<li>Press H, U, S or C directly</li>
+<li>Jump back to any marker from the panel</li>
+</ul></div>
+<div class="steps"><h3>Memorize</h3><ul class="clean">
+<li>Generate flashcards automatically</li>
+<li>Quiz with reveal, arrows and score</li>
+<li>Export to Anki as tab-separated text</li>
+<li>Import decks back into the app</li>
+</ul></div>
+<div class="steps"><h3>Organize</h3><ul class="clean">
+<li>Tasks with priority and due date</li>
+<li>Import any checklist in one step</li>
+<li>Stopwatch laps and focus cycles</li>
+<li>Habit streaks and tally counters</li>
+</ul></div>
+</div>
+
+<h2 id="install">Install in two minutes</h2>
+<div class="steps"><ol>
+<li>Download the repository ZIP from <a href="https://github.com/Ahmedbakr78">GitHub</a> and unzip it.</li>
+<li>Open <code>chrome://extensions</code> and enable <b>Developer mode</b>.</li>
+<li>Choose <b>Load unpacked</b> and select the <code>Heros_Markdown</code> folder.</li>
+<li>For local files, open the extension details and enable <b>Allow access to file URLs</b>.</li>
+<li>Click the toolbar icon, or open any Markdown link, to start.</li>
+<li>Press <code>F</code> inside the app to search all 110 tools.</li>
+</ol></div>
+
+<h2 id="mobile">Full app on mobile</h2>
+<p class="sub">Chrome on phones does not load extensions, so the complete application runs on Kiwi Browser.</p>
+<div class="steps"><ol>
+<li>Install <b>Kiwi Browser</b> on Android from the Play Store.</li>
+<li>Open <code>chrome://extensions</code> inside Kiwi and enable Developer mode.</li>
+<li>Choose <b>Load unpacked</b> and select the unzipped folder.</li>
+<li>Use the toolbar menu to open Heros Markdown. All 110 tools work with touch.</li>
+<li>Tip: export study packs as Markdown to read notes in any mobile Markdown app.</li>
+</ol></div>
+
+<h2 id="support">Browser support</h2>
+<table>
+<tr><th>Platform</th><th>Browser</th><th>Notes</th></tr>
+<tr><td>Windows</td><td>Chrome, Edge, Brave</td><td>Full desktop experience</td></tr>
+<tr><td>macOS</td><td>Chrome, Edge, Brave</td><td>Full desktop experience</td></tr>
+<tr><td>Linux</td><td>Chrome, Edge, Brave</td><td>Full desktop experience</td></tr>
+<tr><td>Android</td><td>Kiwi Browser</td><td>Load unpacked, all tools</td></tr>
+<tr><td>iOS</td><td>Any Markdown app</td><td>Read exported study packs</td></tr>
+</table>
+
+<h2 id="faq">Frequently asked questions</h2>
+<div class="faq">
+<details><summary>Is it really free and unlimited?</summary><p>Yes. MIT licensed, all 110 tools, unlimited documents, no accounts and no paywalls.</p></details>
+<details><summary>Are my files uploaded anywhere?</summary><p>No. Rendering and storage happen entirely on your device using IndexedDB and localStorage. Only addresses you open are fetched.</p></details>
+<details><summary>A local Markdown file will not open. What now?</summary><p>Enable <b>Allow access to file URLs</b> on the extension details page, or use Choose file and drag-and-drop which need no extra permission.</p></details>
+<details><summary>Why does a very large file feel slow at first?</summary><p>Performance mode paints the text immediately and skips heavy math and diagrams. Toggle them back on in the Tools tab for the complete render.</p></details>
+<details><summary>How do I keep my marks and tasks safe?</summary><p>Use Backup all in the Hub. It writes one JSON file with everything, and Restore reads it back completely.</p></details>
+<details><summary>Does the read-aloud feature exist?</summary><p>Heros Markdown focuses on visual studying with markers, cards and quizzes. Text-to-speech was removed by design in version 1.2.</p></details>
+<details><summary>Can I style the app myself?</summary><p>Yes. The Tools tab has a custom CSS editor that applies styles instantly and stores them per device.</p></details>
+</div>
+
+</div>
+<footer>Heros Markdown · 110 free tools · MIT licensed · <a href="https://github.com/Ahmedbakr78">github.com/Ahmedbakr78</a></footer>
+</body>
+</html>
