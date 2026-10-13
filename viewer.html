@@ -1418,8 +1418,9 @@ Supports **GFM**, tables, - [ ] tasks, footnotes[^1], and LaTeX: $E=mc^2$ and $$
           <div class="file-perm-tip" id="filePermTip" hidden>
             <svg class="ic"><use href="#i-alert"/></svg>
             <div style="flex:1">
-              <b>Opening local file directly?</b> Chrome requires enabling <i>"Allow access to file URLs"</i> in <code>chrome://extensions</code>. Or use <b>Choose file</b> / drag-and-drop above!
+              <b>Local file blocked by Chrome.</b> Allow local access once: open <code>chrome://extensions</code>, find Heros Markdown, turn on <i>"Allow access to file URLs"</i>, then reopen the file. Or just pick it below — always works.
             </div>
+            <button class="btn accent" id="btnPermOpen" style="height:28px;padding:0 10px;font-size:11px"><svg class="ic"><use href="#i-upload-cloud"/></svg> Choose file</button>
             <button class="btn ghost" id="btnPermDismiss" style="height:28px;padding:0 8px;font-size:11px">Dismiss</button>
           </div>
           <div class="empty-features">

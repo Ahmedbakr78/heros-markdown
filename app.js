@@ -11,7 +11,7 @@ const $$ = (s, r = document) => Array.prototype.slice.call(r.querySelectorAll(s)
 const clamp = (v, a, b) => v < a ? a : v > b ? b : v;
 function esc(s) {
   return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) {
-    return {'&':'&','<':'<','>':'>','"':'"',"'":'&#39;'}[c];
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
   });
 }
 const raf = fn => requestAnimationFrame(fn);
@@ -54,9 +54,7 @@ function uuid() {
 }
 
 function escapeHtml(html) {
-  return String(html).replace(/[&<>"']/g, function(c) {
-    return {'&':'&','<':'<','>':'>','"':'"',"'":'&#39;'}[c];
-  });
+  return esc(html);
 }
 
 function getSelectionText() {
@@ -156,7 +154,7 @@ const D = {
   diffContainer: $('#diffContainer'),
   swVimMode: $('#swVimMode'),
   swMermaid: $('#swMermaid'), swSpellCheck: $('#swSpellCheck'), swSpellCheckDoc: $('#swSpellCheckDoc'),
-  filePermTip: $('#filePermTip'), btnPermDismiss: $('#btnPermDismiss'),
+  filePermTip: $('#filePermTip'), btnPermDismiss: $('#btnPermDismiss'), btnPermOpen: $('#btnPermOpen'),
   featSearch: $('#featSearch'), featFilterPills: $('#featFilterPills'),
   featuresTabSeg: $('#featuresTabSeg'), ftabTools: $('#ftab-tools'), ftabList: $('#ftab-list'),
   // Study magic (Heros PDF parity, local only)
@@ -650,10 +648,12 @@ async function loadFromFile(file) {
 }
 
 async function fileFetch(url) {
+  // fetch() first (works for http(s), and for file:// when CSP + "Allow access to file URLs" allow it)
   try {
     const res = await fetch(url);
     if (res.ok) return await res.text();
   } catch (e) {}
+  // XHR fallback (some Chrome builds block fetch on file:// but still allow XHR)
   return await new Promise((res, rej) => {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
@@ -663,17 +663,28 @@ async function fileFetch(url) {
   });
 }
 
-async function loadFromUrl(url) {
+// Heal double-encoded file URLs (ex: file:///…/Study%2520Prompt.md -> Study%20Prompt.md)
+function normUrl(u) {
+  let s = String(u == null ? '' : u).trim();
+  try { if (/%25[0-9A-Fa-f]{2}/.test(s)) s = decodeURIComponent(s); } catch (e) {}
+  return s;
+}
+
+function fileNameFromUrl(url) {
+  let last = String(url).split('?')[0].split('#')[0].split('/').pop() || 'document.md';
+  try { return decodeURIComponent(last) || 'document.md'; } catch (e) { return last || 'document.md'; }
+}
+
+async function loadFromUrl(rawUrl) {
+  const url = normUrl(rawUrl);
   try {
     setStatus('Downloading…', 'busy');
     showProgress(20);
     const text = await fileFetch(url);
     showProgress(70);
-    let fname = 'document.md';
-    try {
-      fname = decodeURIComponent(url.split('/').pop().split('?')[0].split('#')[0] || 'document.md');
-    } catch (e) {
-      fname = url.split('/').pop().split('?')[0].split('#')[0] || 'document.md';
+    let fname = fileNameFromUrl(url);
+    if (!/\.[A-Za-z0-9]+$/.test(fname) && /\.(md|markdown|mdown|mkd|mdx)$/i.test(url)) {
+      fname = (url.match(/[^/]+\.(?:md|markdown|mdown|mkd|mdx)$/i) || [fname])[0];
     }
     S.file = null;
     S.docId = await docIdFor(fname, text.length, text.slice(0, 8000));
@@ -685,7 +696,11 @@ async function loadFromUrl(url) {
     setStatus('Ready');
     if (/^file:/i.test(url)) {
       if (D.filePermTip) D.filePermTip.hidden = false;
-      toast('Cannot read local file — enable "Allow access to file URLs" in chrome://extensions', 'err', 6000);
+      const csp = String((err && err.message) || err || '');
+      const reason = /content security policy/i.test(csp)
+        ? 'blocked by page policy'
+        : (/network|cors|refused/i.test(csp) ? 'enable "Allow access to file URLs"' : 'not readable');
+      toast('Cannot read local file (' + reason + ') — enable "Allow access to file URLs" in chrome://extensions, or use Choose file', 'err', 7000);
     } else {
       toast('Could not fetch URL (CORS or network error)', 'err', 4000);
     }
@@ -2169,6 +2184,9 @@ D.btnPermDismiss?.addEventListener('click', () => {
 // Progress bar click to top
 D.progressBarTop?.addEventListener('click', () => { D.viewer.scrollTo({ top: 0, behavior: 'smooth' }); });
 
+// Local-file tip: open the picker (works with no extra permission) or dismiss
+if (D.btnPermOpen) D.btnPermOpen.addEventListener('click', () => { pickFile(); });
+
 // Annotations toolbar (legacy  routes to study marks, sel-bar is primary)
 if (D.annoClear) D.annoClear.addEventListener('click', () => {
   if (!S.docId) return;
@@ -3089,6 +3107,13 @@ async function renderOneMermaid(block) {
     const id = 'herosmmd-' + Date.now().toString(36) + '-' + S.mermaidSeq;
     const res = await window.mermaid.render(id, rawCode);
     const svg = typeof res === 'string' ? res : (res && res.svg ? res.svg : '');
+    // guard: a diagram mermaid cannot measure returns a non-finite viewBox (ex: "0 0 -Infinity 450")
+    const vb = (svg.match(/viewBox="([^"]*)"/) || [])[1] || '';
+    if (vb) {
+      const parts = String(vb).trim().split(/[\s,]+/);
+      const bad = parts.length !== 4 || parts.some(function (n) { return !isFinite(parseFloat(n)); });
+      if (bad) throw new Error('invalid diagram size (viewBox "' + vb + '")');
+    }
     if (svg) {
       // keep source for export/theme re-render
       const src = rawCode;
