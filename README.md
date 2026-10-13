@@ -31,12 +31,14 @@
 9. [Study system in depth](#study-system-in-depth)
 10. [Privacy and offline](#privacy-and-offline)
 11. [Mobile](#mobile)
-12. [Backup, restore and data](#backup-restore-and-data)
-13. [Development](#development)
-14. [Roadmap](#roadmap)
-15. [FAQ](#faq)
- 16. [Author](#author)
- 17. [License](#license)
+ 15. [Backup, restore and data](#backup-restore--and-data)
+ 16. [Feature map and release history](#feature-map-at-a-glance)
+ 17. [Development](#development)
+ 18. [Roadmap](#roadmap)
+ 19. [FAQ](#faq)
+ 20. [Usage examples](#usage-examples)
+ 21. [Author](#author)
+ 22. [License](#license)
 
 ---
 
@@ -362,17 +364,86 @@ sequenceDiagram
 
 ## Install
 
-### Desktop: Chrome, Edge, Brave
+Heros Markdown is a packed extension folder. There is nothing to compile. The same folder loads in every Chromium-based browser. The steps below are written for **Chrome**, **Vivaldi** and **Yandex Browser** first, then the other supported browsers.
 
-1. Download this repository with **Code, Download ZIP** and unzip it.
-2. Open `chrome://extensions` and enable **Developer mode**.
-3. Choose **Load unpacked** and select the `Heros_Markdown` folder.
-4. For local files, open the extension details and enable **Allow access to file URLs**.
-5. Open any `.md` link, click the toolbar icon, or press the icon to start.
+### What is provided in this repository
+
+| Item | Purpose |
+|---|---|
+| `manifest.json` | Extension definition, version 1.2.0, no build step |
+| `viewer.html`, `app.js` | The complete application, one page, no dependencies |
+| `background.js` | Takes over Markdown links automatically |
+| `popup.html`, `popup.js` | Toolbar popup for the auto-open toggles |
+| `vendor/` | marked, KaTeX with fonts, Mermaid, all bundled for offline use |
+| `icons/` | App and extension icons, see the icon table above |
+| `docs/index.html` | The public landing page for GitHub Pages |
+| `assets/` | Icons for the store and website, plus real screenshots |
+| `README.md` | This document |
+| `CHANGELOG.md`, `RELEASE_v1.2.0.md` | Version history and release notes |
+| `CONTRIBUTING.md`, `docs/ARCHITECTURE.md` | Contribution rules and technical design |
+
+### Method A: Load unpacked from a folder (recommended, keeps updates local)
+
+| Browser | Extensions page | Extra step before Load unpacked |
+|---|---|---|
+| **Google Chrome** | `chrome://extensions` | Enable **Developer mode** in the top-right |
+| **Vivaldi** | `vivaldi://extensions` | Enable **Developer mode** in the top-right |
+| **Yandex Browser** | `browser://extensions` | Enable **Developer mode** in the top-right |
+| **Microsoft Edge** | `edge://extensions` | Enable **Developer mode** in the left sidebar |
+| **Brave** | `brave://extensions` | Enable **Developer mode** in the top-right |
+| **Opera** | `opera://extensions` | Enable **Developer mode** in the top-right |
+| **Kiwi (Android)** | `chrome://extensions` | Enable Developer mode, then load the folder |
+
+Steps for every browser:
+
+1. Download this repository with **Code, Download ZIP** and unzip it. Keep the folder named `Heros_Markdown` with `manifest.json` directly inside it.
+2. Open the extensions page for your browser from the table above.
+3. Turn on **Developer mode**.
+4. Choose **Load unpacked** and select the `Heros_Markdown` folder.
+5. Pin the extension to the toolbar so the icon is always reachable.
+6. For local files: open the extension details and enable **Allow access to file URLs**. Chrome, Vivaldi and Edge show this toggle on the extension card. Brave shows it on the details page. Yandex Browser keeps it on the details page as well.
+7. Open any `.md` link, click the toolbar icon, or drag a Markdown file onto a browser window to start.
+
+### Method B: Load the release ZIP without git users
+
+1. Download `Heros_Markdown-1.2.0.zip` from the [latest release](https://github.com/Ahmedbakr78/heros-markdown/releases/latest).
+2. Unzip it. You get a folder named `Heros_Markdown` that is already in load-ready shape.
+3. Load unpacked exactly as in Method A.
+
+### Method C: Command line for developers
+
+```bash
+git clone https://github.com/Ahmedbakr78/heros-markdown.git
+cd heros-markdown
+# Then: chrome://extensions -> Developer mode -> Load unpacked -> this folder
+```
+
+There is no `npm install`, no build, and no server. Everything runs from the folder.
+
+### Browser specific notes
+
+| Browser | What works | Notes |
+|---|---|---|
+| Chrome | Full, stable releases | The reference browser for this app |
+| Vivaldi | Full | Also supports the Chromium extension panel; run the app as a tab for the best layout |
+| Yandex Browser | Full | If a login wall blocks the store, load unpacked instead |
+| Brave | Full | Turn off Shields on the extension page if loading is blocked |
+| Edge | Full | `edge://extensions` uses the same Load unpacked flow |
+| Opera | Full | Keep "Allow access to file URLs" enabled for local files |
+| Safari | Not supported | Safari uses a different extension model; read exported study packs instead |
+| Firefox | Not yet | A manifest version 2 variant is on the roadmap |
+
+### Make it work with local files in three steps
+
+1. Open the extension details page and enable **Allow access to file URLs**.
+2. In the popup, keep **Auto-open local .md** switched on.
+3. Open any local Markdown file from the file system and it opens in Heros Markdown automatically. If a file opens as plain text, use the Open button or drag-and-drop, which need no permission at all.
+
+### Make it work with web Markdown files
+
+GitHub raw links serve Markdown with the correct content type, so links like `https://raw.githubusercontent.com/user/repo/main/README.md` open directly with auto-open enabled. Other servers must allow cross-origin requests. If a server blocks it, copy the address from inside the app with Open from URL and use the same field with the fetch, or download the file and open it locally.
 
 ### Mobile: Kiwi Browser on Android
-
-Chrome does not load extensions on phones, so the full app runs on **Kiwi Browser**:
 
 1. Install **Kiwi Browser** from the Play Store.
 2. Open `chrome://extensions` inside Kiwi and enable Developer mode.
@@ -390,6 +461,10 @@ The interface is responsive on phones: the sidebar becomes a drawer, toolbars co
 | Linux | Use the user data directory if testing with a custom profile |
 | Android | Kiwi Browser, see above |
 | iOS | Safari cannot load extensions; export study packs instead |
+
+### Verifying the install
+
+Open the app, press **F** for the features list, and confirm three things: the list shows 110 cards, a rendered document shows heading time badges and working math, and the bottom status bar shows the timer and progress. If any of those fail, reload the extension from the extensions page.
 
 ---
 
@@ -515,6 +590,113 @@ There is no build step and no package manager. Everything ships as plain HTML, C
 **Can I use my own styling.** The Tools tab has a custom CSS editor that applies styles instantly and stores them locally.
 
 **Is it really free.** Yes. MIT license, all 110 tools, unlimited documents, no accounts.
+
+---
+
+## Feature map at a glance
+
+```mermaid
+pie title Heros Markdown 110 tools by category
+    "Reader and Markdown" : 20
+    "Themes and comfort" : 12
+    "Study system" : 24
+    "Builder, lab and power" : 28
+    "Exports" : 14
+    "Performance and platform" : 12
+```
+
+## Study loop
+
+```mermaid
+stateDiagram-v2
+    [*] --> Open
+    Open --> Read: load file, URL or paste
+    Read --> Mark: select text H / U / S
+    Mark --> Cards: generate flashcards
+    Cards --> Quiz: quiz me
+    Quiz --> Anki: export TSV
+    Quiz --> Known: mark card known
+    Known --> Quiz
+    Read --> Organize: tasks, stopwatch, tracker
+    Organize --> Backup: backup everything
+    Backup --> [*]
+```
+
+## Release history
+
+| Version | Date | Focus | Highlights |
+|---|---|---|---|
+| v1.0.0 | — | First release | Full reader, offline KaTeX, Mermaid, outline, search, builder, exports, themes |
+| v1.1.0 | — | 100 tools | Marker Studio, flashcards, cloze quiz, Anki, templates, study lab, custom CSS, Vim keys |
+| v1.2.0 | current | 110 tools | Task manager, stopwatch, counters, habit tracker, full backup, Heros PDF studio design, mobile drawer |
+
+Full detail in [CHANGELOG.md](CHANGELOG.md). Release notes for the current version are in [RELEASE_v1.2.0.md](RELEASE_v1.2.0.md) and the download is on the [releases page](https://github.com/Ahmedbakr78/heros-markdown/releases/latest).
+
+## Roadmap
+
+```mermaid
+gantt
+    title Heros Markdown roadmap
+    dateFormat YYYY-MM-DD
+    axisFormat %Y
+    section Core
+    Reader, math, diagrams, search      :done, core, 2024-01-01, 2024-06-01
+    Marker Studio and flashcards       :done, study, 2024-06-01, 2024-09-01
+    section Study studio
+    Tasks, timers, tracker, backup     :done, power, 2025-01-01, 2025-03-01
+    Plugin API for templates           :active, plugins, 2025-03-01, 2025-06-01
+    section Platforms
+    Local sync between devices         :planned, sync, 2025-06-01, 2025-09-01
+    Firefox build                      :planned, ff, 2025-09-01, 2025-12-01
+```
+
+## Storage model
+
+```mermaid
+erDiagram
+    DOCUMENT ||--o{ MARKER : has
+    DOCUMENT ||--o{ FLASHCARD : has
+    DOCUMENT ||--o{ NOTE : has
+    DOCUMENT ||--o{ BOOKMARK : has
+    USER ||--o{ TASK : owns
+    USER ||--o{ COUNTER : owns
+    USER ||--o{ HABIT : owns
+    USER ||--o{ STOPWATCH : owns
+    USER ||--|| PREFERENCES : has
+```
+
+## What is provided in this repository
+
+| Path | Purpose |
+|---|---|
+| `manifest.json` | Extension definition, version 1.2.0 |
+| `viewer.html`, `app.js` | The complete application in one page |
+| `background.js` | Automatic takeover of Markdown links |
+| `popup.html`, `popup.js` | Toolbar popup for auto-open toggles |
+| `vendor/` | marked, KaTeX with fonts, Mermaid, bundled |
+| `icons/` | App and extension icons |
+| `assets/`, `assets/screenshots/` | Icons for store and website plus real screenshots |
+| `docs/index.html` | The public landing page for GitHub Pages |
+| `docs/ARCHITECTURE.md` | Technical design, storage and security notes |
+| `README.md` | This document |
+| `CHANGELOG.md` | Version history in Keep a Changelog format |
+| `RELEASE_v1.2.0.md` | Release notes for the current version |
+| `CONTRIBUTING.md` | Contribution ground rules |
+| `REPO_META.md` | GitHub About, topics, website and release setup values |
+| `LICENSE` | MIT license |
+
+## Usage examples
+
+| Goal | Steps |
+|---|---|
+| Study a chapter | Open the file, read, mark key lines with `H`, generate flashcards, quiz me |
+| Revise with Anki | Tools, flashcards, Export Anki TSV, import the file in Anki |
+| Prepare an exam | Load the Exam template, edit in the builder, press Apply, then quiz |
+| Track a habit | Tools, Study tracker, add a habit, tap today, keep the streak |
+| Time a session | Tools, Stopwatch, Start, Lap, Reset, laps are saved |
+| Keep notes tidy | Marker Studio, write a note from the selection, export markers |
+| Move to a new PC | Hub, Backup all, copy the JSON, Restore on the new machine |
+| Share without sharing | Tools, Study pack export, send one Markdown file |
 
 ---
 
