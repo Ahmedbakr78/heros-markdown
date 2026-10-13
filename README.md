@@ -10,7 +10,7 @@
 
 <img src="icons/icon128.png" alt="Heros Markdown extension icon" width="26"> Extension icon `icons/icon128.png` &nbsp;·&nbsp; <img src="icons/icon48.png" alt="Heros Markdown icon 48" width="18"> `icon48` &nbsp;·&nbsp; <img src="icons/icon32.png" alt="Heros Markdown icon 32" width="16"> `icon32` &nbsp;·&nbsp; <img src="icons/icon16.png" alt="Heros Markdown icon 16" width="16"> `icon16`
 
-> Live at [github.com/Ahmedbakr78](https://github.com/Ahmedbakr78) — [Install](#install) · [All 110 features](#all-110-features) · [Architecture](#architecture) · [Releases](RELEASE_v1.2.0.md) · [Changelog](CHANGELOG.md)
+> Built by [Ahmed ABOBAKR](https://www.linkedin.com/in/ahmed-abo-bakr-1b2466288/?isSelfProfile=true) · [github.com/Ahmedbakr78](https://github.com/Ahmedbakr78) · [Install](#install) · [All 110 features](#all-110-features) · [Architecture](#architecture) · [Releases](RELEASE_v1.2.0.md) · [Changelog](CHANGELOG.md)
 
 ![Version](https://img.shields.io/badge/version-1.2.0-4c8dff) ![License](https://img.shields.io/badge/license-MIT-22c55e) ![Price](https://img.shields.io/badge/price-free_forever-22c55e) ![Offline](https://img.shields.io/badge/offline-100%25-22c55e) ![Tools](https://img.shields.io/badge/tools-110-4c8dff) ![Chrome](https://img.shields.io/badge/Chrome_Edge_Brave-supported-14181f) ![Mobile](https://img.shields.io/badge/Kiwi_Browser-supported-14181f)
 
@@ -35,7 +35,8 @@
 13. [Development](#development)
 14. [Roadmap](#roadmap)
 15. [FAQ](#faq)
- 16. [License](#license)
+ 16. [Author](#author)
+ 17. [License](#license)
 
 ---
 
@@ -514,6 +515,19 @@ There is no build step and no package manager. Everything ships as plain HTML, C
 **Can I use my own styling.** The Tools tab has a custom CSS editor that applies styles instantly and stores them locally.
 
 **Is it really free.** Yes. MIT license, all 110 tools, unlimited documents, no accounts.
+
+---
+
+## Author
+
+**Ahmed ABOBAKR**
+
+| | |
+|---|---|
+| GitHub | [github.com/Ahmedbakr78](https://github.com/Ahmedbakr78) |
+| LinkedIn | [linkedin.com/in/ahmed-abo-bakr-1b2466288](https://www.linkedin.com/in/ahmed-abo-bakr-1b2466288/?isSelfProfile=true) |
+
+Built and maintained as a free tool for students, developers and researchers who want a private, offline Markdown studio with a real study system. Feedback, issues and pull requests are welcome on the repository.
 
 ---
 
